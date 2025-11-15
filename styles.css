@@ -1,0 +1,279 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.title-container {
+    text-align: center;
+    margin-bottom: 50px;
+    animation: fadeInDown 1s ease;
+}
+
+.main-title {
+    font-size: 4rem;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    margin-bottom: 10px;
+    animation: pulse 2s infinite;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: #ffeaa7;
+    font-style: italic;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.message-box {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px 50px;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: fadeInUp 1s ease;
+    backdrop-filter: blur(10px);
+    border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.heart-icon {
+    font-size: 4rem;
+    animation: heartbeat 1.5s infinite;
+    margin-bottom: 20px;
+}
+
+.love-message {
+    font-size: 1.4rem;
+    color: #c44569;
+    margin-bottom: 30px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.love-button {
+    background: linear-gradient(135deg, #ff6b9d, #c44569);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(196, 69, 105, 0.4);
+    transition: all 0.3s ease;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.love-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(196, 69, 105, 0.6);
+}
+
+.love-button:active {
+    transform: scale(0.95);
+}
+
+/* Balon terbang */
+#balloons-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.balloon {
+    position: absolute;
+    bottom: -100px;
+    width: 60px;
+    height: 75px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: floatUp 8s ease-in infinite;
+    opacity: 0.9;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.balloon::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 15px solid inherit;
+}
+
+.balloon-string {
+    position: absolute;
+    bottom: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes floatUp {
+    0% {
+        bottom: -100px;
+        opacity: 0.9;
+        transform: translateX(0) rotate(0deg);
+    }
+    50% {
+        transform: translateX(30px) rotate(5deg);
+    }
+    100% {
+        bottom: 110%;
+        opacity: 0;
+        transform: translateX(0) rotate(-5deg);
+    }
+}
+
+/* Hati bertebaran */
+#hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.heart {
+    position: absolute;
+    top: -50px;
+    animation: fallDown 5s linear infinite;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 5px rgba(255, 107, 157, 0.6));
+}
+
+@keyframes fallDown {
+    0% {
+        top: -50px;
+        opacity: 0.8;
+        transform: translateX(0) rotate(0deg);
+    }
+    50% {
+        transform: translateX(30px) rotate(180deg);
+    }
+    100% {
+        top: 110%;
+        opacity: 0;
+        transform: translateX(0) rotate(360deg);
+    }
+}
+
+/* Ledakan hati */
+.explosion-heart {
+    position: fixed;
+    font-size: 30px;
+    pointer-events: none;
+    z-index: 1000;
+    animation: explode 1.5s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Animasi tambahan */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    10%, 30% {
+        transform: scale(1.1);
+    }
+    20%, 40% {
+        transform: scale(0.9);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .message-box {
+        padding: 30px 25px;
+    }
+    
+    .love-message {
+        font-size: 1.1rem;
+    }
+    
+    .balloon {
+        width: 40px;
+        height: 50px;
+    }
+}

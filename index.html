@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love in the Air 💕</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title-container">
+            <h1 class="main-title">Love is in the Air</h1>
+            <p class="subtitle">Cinta yang Terbang Bersama Angin</p>
+        </div>
+
+        <!-- Balon-balon terbang -->
+        <div id="balloons-container"></div>
+        
+        <!-- Hati bertebaran -->
+        <div id="hearts-container"></div>
+
+        <!-- Pesan romantis -->
+        <div class="message-box">
+            <div class="heart-icon">❤️</div>
+            <p class="love-message">Setiap detik bersamamu adalah momen yang indah</p>
+            <p class="love-message">Ardi dan Widi</p>
+            <p class="love-message">Akan Bersama Selamanya</p>
+            <button class="love-button" onclick="createExplosion()">Cinta 💕</button>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk membuat balon terbang
+        function createBalloon() {
+            const container = document.getElementById('balloons-container');
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            
+            const colors = ['#ff6b9d', '#c44569', '#f8b500', '#ff9ff3', '#feca57'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.backgroundColor = randomColor;
+            
+            balloon.style.left = Math.random() * 100 + '%';
+            balloon.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            balloon.style.animationDelay = Math.random() * 2 + 's';
+            
+            // Tambahkan tali balon
+            const string = document.createElement('div');
+            string.className = 'balloon-string';
+            balloon.appendChild(string);
+            
+            container.appendChild(balloon);
+            
+            // Hapus balon setelah animasi selesai
+            setTimeout(() => {
+                balloon.remove();
+            }, 10000);
+        }
+
+        // Fungsi untuk membuat hati jatuh
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            heart.style.animationDelay = Math.random() * 1 + 's';
+            
+            container.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Fungsi untuk ledakan cinta
+        function createExplosion() {
+            const button = document.querySelector('.love-button');
+            const rect = button.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 20; i++) {
+                const explosionHeart = document.createElement('div');
+                explosionHeart.className = 'explosion-heart';
+                explosionHeart.innerHTML = '💕';
+                explosionHeart.style.left = centerX + 'px';
+                explosionHeart.style.top = centerY + 'px';
+                
+                const angle = (Math.PI * 2 * i) / 20;
+                const velocity = 100 + Math.random() * 100;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+                
+                explosionHeart.style.setProperty('--tx', tx + 'px');
+                explosionHeart.style.setProperty('--ty', ty + 'px');
+                
+                document.body.appendChild(explosionHeart);
+                
+                setTimeout(() => {
+                    explosionHeart.remove();
+                }, 1500);
+            }
+            
+            // Efek pada tombol
+            button.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Buat balon dan hati secara berkala
+        setInterval(createBalloon, 800);
+        setInterval(createHeart, 500);
+        
+        // Buat beberapa balon di awal
+        for (let i = 0; i < 8; i++) {
+            setTimeout(createBalloon, i * 300);
+        }
+        
+        // Buat beberapa hati di awal
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createHeart, i * 200);
+        }
+
+        // Animasi judul
+        const title = document.querySelector('.main-title');
+        let hue = 0;
+        setInterval(() => {
+            hue = (hue + 1) % 360;
+            title.style.textShadow = `0 0 20px hsla(${hue}, 100%, 70%, 0.8)`;
+        }, 50);
+    </script>
+</body>
+</html>
